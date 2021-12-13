@@ -12,7 +12,7 @@ const Main = (props) => {
           <Text>Text!</Text>
         </Grid>
         <Grid margin="10px" bg={({ theme }) => theme.color.background}>
-          <Input label="Input here!">Input!</Input>
+          <Input label="Input here!" multiLine placeholder="asd">Input!</Input>
         </Grid>
       </Grid>
     </>
