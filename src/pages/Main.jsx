@@ -5,7 +5,7 @@ const Main = (props) => {
     <>
       <Grid bg="#fff">
         <Grid margin="10px" bg="#fff">
-          <Button>ji</Button>
+          <Button>jiSSS</Button>
         </Grid>
 
         <Grid margin="10px" bg="#fff">
