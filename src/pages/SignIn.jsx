@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Grid } from '../elements'
 import { Text } from '../elements'
 
+import SignUp from './SignUp'
 
 const SignIn = (props) => {
   return (
