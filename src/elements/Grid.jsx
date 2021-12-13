@@ -1,14 +1,15 @@
 import styled from 'styled-components'
 
 const Grid = (props) => {
-  const { children, width, padding, margin, bg, flex, side_flex } = props
-  const styles = { width, padding, margin, bg, flex, side_flex }
+  const { height, children, width, padding, margin, bg, flex, side_flex } = props;
+  const styles = {height, width, padding, margin, bg, flex, side_flex }
   return <GridBox {...styles}>{children}</GridBox>
 }
 
 Grid.defaultProps = {
   children: '',
-  width: '',
+  width: '', 
+  height:"",
   padding: '',
   margin: '',
   bg: '',
@@ -18,17 +19,19 @@ Grid.defaultProps = {
 
 const GridBox = styled.div`
   width: ${(props) => props.width};
+  height: ${(props) => props.height};
+
   padding: ${(props) => props.padding};
   margin: ${(props) => props.margin};
-  background: ${(props) => (props.bg ? props.bg : '')};
+  background: ${(props) => (props.bg ? props.bg : "")};
   ${(props) =>
     props.flex
-      ? 'display: flex; align-items: center; justify-content: center; flex-direction: column;'
-      : ''}
+      ? "display: flex; align-items: center; justify-content: center; flex-direction: column;"
+      : ""}
   ${(props) =>
     props.side_flex
-      ? 'display: flex; align-items: center; justify-content: space-between;'
-      : ''}
-`
+      ? "display: flex; align-items: center; justify-content: space-between;"
+      : ""}
+`;
 
 export default Grid

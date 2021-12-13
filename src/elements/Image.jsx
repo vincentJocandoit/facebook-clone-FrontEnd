@@ -32,11 +32,11 @@ Image.defaultProps = {
 }
 
 const ImageCircle = styled.div`
-  cursor: ${(props) => (props.pointer ? 'pointer' : '')};
+   cursor: ${(props) => (props.pointer ? 'pointer' : '')};
   --size: ${(props) => props.size}px;
-  width: var(---size);
-  height: var(---size);
-  border-radius: var(---size);
+  width: var(--size);
+  height: var(--size);
+  border-radius: var(--size);
   background-image: url('${(props) => props.src}');
   background-size: cover;
 `
