@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 const Text = (props) => {
+
   const { children, fontSize, color, bold, margin } = props
   const styles = { fontSize, color, bold, margin }
   return (
