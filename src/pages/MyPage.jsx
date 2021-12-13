@@ -1,5 +1,7 @@
-const MyPage = (props) => {
-  return <>MyPage</>
-}
+import React from "react";
 
-export default MyPage
+const MyPage = (props) => {
+  return <React.Fragment>MyPage</React.Fragment>;
+};
+
+export default MyPage;
