@@ -1,3 +1,4 @@
+
 import React from "react"
 import styled from "styled-components"
 import { useHistory } from "react-router-dom"
@@ -26,10 +27,11 @@ const Main = (props) => {
                 <Grid margin="50px" bg="#fff" height="30px">
                     <Image size="60" shape={"circle"} _onclick={() => history.push("/")} src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzs22mTuZcn5ofqQe7br-65iLEalYd9F95gg&usqp=CAU"} pointer></Image>
                 </Grid>
-
+ 
                 <BasicModal />
             </Grid>
 
+ 
             {mockPostList.map((list, idx) => {
                 return (
                     <Grid key={idx} flex>
@@ -77,4 +79,5 @@ const myPost = styled.div`
     height: 30px;
     margin: 10px;
 `
+ 
 export default Main
