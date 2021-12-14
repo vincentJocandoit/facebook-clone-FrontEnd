@@ -2,13 +2,14 @@ import styled from 'styled-components'
 import { Grid, Text } from '.'
 
 const Input = (props) => {
-  const {width, label, multiLine, placeholder, _onChange } = props
-
+  const { height,width, label, multiLine, placeholder, _onChange } = props;
+  const styles = { height, width };
   if (multiLine) {
     return (
       <Grid>
         {label && <Text>{label}</Text>}
         <TextareaBox
+         {...styles}
           rows={20}
           placeholder={placeholder}
           onChange={_onChange}
@@ -21,7 +22,7 @@ const Input = (props) => {
     <>
       <Grid width="100%">
         {label && <Text>{label}</Text>}
-        <InputBox placeholder={placeholder} onChange={_onChange}></InputBox>
+        <InputBox {...styles} placeholder={placeholder} onChange={_onChange}></InputBox>
       </Grid>
     </>
   )
@@ -33,6 +34,7 @@ Input.defaultProps = {
   placeholder: "",
   _onChange: () => {},
   width:"",
+  height:"",
 };
 const InputBox = styled.input`
   border-radius: 18px;
