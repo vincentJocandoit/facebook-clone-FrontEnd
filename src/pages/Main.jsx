@@ -43,7 +43,7 @@ const Main = (props) => {
                                     backgroundSize: "center",
                                 }}></myPost>
                             <div style={{ display: "flex", flexDirection: "row", margin: "10px" }}>
-                                <Text fontSize="15px"  >{list.userId}</Text>
+                                <Text fontSize="16px"  >{list.userId}</Text>
                                 <Text fontSize="25px" fontWeight="bold">{list.content}</Text>
                             </div>
                             <div style={{ display: "flex", flexDirection: "row", margin: "10px" }}>
