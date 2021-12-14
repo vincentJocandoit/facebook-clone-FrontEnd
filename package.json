@@ -12,6 +12,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "axios": "^0.24.0",
     "connected-react-router": "6.8.0",
     "history": "4.10.1",
     "immer": "^9.0.7",
@@ -29,7 +30,8 @@
     "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.3",
     "styled-reset": "^4.3.4",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "zustand": "^3.6.7"
   },
   "scripts": {
     "start": "react-scripts start",
