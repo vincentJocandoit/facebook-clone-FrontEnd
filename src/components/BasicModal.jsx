@@ -32,7 +32,9 @@ export default function BasicModal(props) {
     const { history } = props
 
     // const preview = useSelector((state) => state.image.preview)
+
     // const post_list = useSelector((state) => state.post)
+
     const [content, setContent] = React.useState("")
 
    
