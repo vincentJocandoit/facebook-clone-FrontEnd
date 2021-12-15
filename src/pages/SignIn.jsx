@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import { Grid } from '../elements'
@@ -7,6 +7,10 @@ import { Text } from '../elements'
 import SignUp from './SignUp'
 
 const SignIn = (props) => {
+
+  let [modal, modalchange] = useState(false);
+
+
   return (
     <React.Fragment>
       <Wrap>
@@ -22,6 +26,11 @@ const SignIn = (props) => {
                 </Grid>
               </Grid>
             </LeftArea>
+            {
+            modal === true
+            ? <SignUp></SignUp>
+            : null
+            }
             <RightArea>
               <Grid>
                 <InputId placeholder="E-mail"></InputId>
@@ -36,13 +45,14 @@ const SignIn = (props) => {
               </Grid>
               <Line />
               <Grid>
-                <ButtonSign>
+                <ButtonSign onClick={() => {modalchange(!modal)}}>
                   <Text color="white" fontSize="19px" bold>새 계정 만들기</Text>
                 </ButtonSign>
               </Grid>
             </RightArea>
           </AreaWrap>
         </Header>
+        
         <Footer>
             <Text color="#737373" fontSize="15px">한국어</Text>
             <Text color="#737373" fontSize="15px" margin="0px 0px 0px 10px">English(US)</Text>
@@ -100,10 +110,11 @@ const LeftArea = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0px 0px 0px 50px;
+  margin: 0px 0px 0px 130px;
+  z-index: 9;
 `
 const RightArea = styled.div`
-  width: 35%;
+  width: 25%;
   height: 100%;
   background-color: white;
   float: right;
@@ -111,7 +122,8 @@ const RightArea = styled.div`
   border: 1px solid #eee;
   border-radius: 10px;
   box-shadow: 3px 4px 19px -7px #000000;
-  margin: 0px 50px 0px 0px;
+  margin: 0px 130px 0px 0px;
+  z-index: 8;
 `
 
 
