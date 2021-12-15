@@ -3,7 +3,7 @@ import axios from "axios"
 const USER_TOKEN = localStorage.getItem("token")
 
 const api = axios.create({
-    baseURL: "http:// ",
+    baseURL: "http:/3.34.190.187/ ",
     headers: {
         "content-type": "application/json;charset=UTF-8",
         accept: "application/json,",
@@ -47,8 +47,5 @@ export const apis = {
     editPost: (id, contents) => api.put("", contents),
     // 게시물 삭제하기
     delPost: (postId) => api.delete(`/api/post/:postId`),
-     
-  
-
-     
+      
 }
