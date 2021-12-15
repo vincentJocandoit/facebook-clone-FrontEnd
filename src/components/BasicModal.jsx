@@ -35,8 +35,6 @@ export default function BasicModal(props) {
     // const post_list = useSelector((state) => state.post)
     const [content, setContent] = React.useState("")
 
-   
-
     const userID = localStorage.getItem(" ")
 
     const fileInput = React.useRef()
@@ -119,11 +117,13 @@ export default function BasicModal(props) {
                             placeholder="What's on your mind, Nickname?"></Input>
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}></Typography>
+                        <input   ref={fileInput} accept="image/*" onChange={filePreview} type="file">
                     <CrudBox>
-                        <IconButton input ref={fileInput} onChange={selectFile} type="file" accept="image/*" style={{ fontSize: "100px" }} color="primary" aria-label="upload picture" component="span" onChange={filePreview}>
-                            <PhotoCamera />
-                        </IconButton>
+                            <IconButton color="primary" aria-label="upload picture" component="span">
+                                <PhotoCamera style={{ fontSize: "50px" }} />
+                            </IconButton>
                     </CrudBox>
+                        </input>
                 </Box>
             </Modal>
         </div>
