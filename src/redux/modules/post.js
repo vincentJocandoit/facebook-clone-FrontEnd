@@ -1,8 +1,8 @@
-import { createAction, handleActions } from "redux-actions";
-import { produce } from "immer";
+import { createAction, handleActions } from "redux-actions"
+import { produce } from "immer"
 
-import { apis } from "../lib/axios"
-
+// import {apis}  from "../../lib/axios";
+import { apis } from "../../lib/axios";
 const GET_POST = "GET_POST"
 const ADD_POST = "ADD_POST"
 const UPDATE_POST = "UPDATE_POST"
@@ -17,39 +17,39 @@ const deletePost = createAction(DELETE_POST, (post_id) => ({ post_id }))
 const editPost = createAction(UPDATE_POST, (post_id) => ({ post_id }))
 
 const initialState = [
-  {
-    postId: 0,
-    content: "화이팅입니다~~",
-    img: "https://t1.daumcdn.net/cfile/tistory/99C938355DD29C6C07",
-    userId: "superjonghoon",
-    createAt: "2021-12-13 10:00:00",
-    username: "조종훈",
-  },
-  {
-    postId: 1,
-    content: "으쌰으쌰~~",
-    img: "https://t1.daumcdn.net/cfile/tistory/99C938355DD29C6C07",
-    userId: "herosangil",
-    createAt: "2021-12-14 10:00:00",
-    username: "정상일",
-  },
-  {
-    postId: 2,
-    content: "호롤롤로~~",
-    img: "https://t1.daumcdn.net/cfile/tistory/99C938355DD29C6C07",
-    userId: "yodataesoo",
-    createAt: "2021-12-15 10:00:00",
-    createAt: "2021-12-15 10:00:00",
-    username: "강태수",
-  },
-];
+    {
+        postId: 0,
+        content: "화이팅입니다~~",
+        img: "https://t1.daumcdn.net/cfile/tistory/99C938355DD29C6C07",
+        userId: "superjonghoon",
+        createAt: "2021-12-13 10:00:00",
+        username: "조종훈",
+    },
+    {
+        postId: 1,
+        content: "으쌰으쌰~~",
+        img: "https://t1.daumcdn.net/cfile/tistory/99C938355DD29C6C07",
+        userId: "herosangil",
+        createAt: "2021-12-14 10:00:00",
+        username: "정상일",
+    },
+    {
+        postId: 2,
+        content: "호롤롤로~~",
+        img: "https://t1.daumcdn.net/cfile/tistory/99C938355DD29C6C07",
+        userId: "yodataesoo",
+        createAt: "2021-12-15 10:00:00",
+        createAt: "2021-12-15 10:00:00",
+        username: "강태수",
+    },
+]
 
 const postAddAction = (post) => {
-  return function (dispatch, getState, { history }) {
-    dispatch(addPost(post))
-    history.push("/");
-  };
-};
+    return function (dispatch, getState, { history }) {
+        dispatch(addPost(post))
+        history.push("/")
+    }
+}
 
 const getPostAPI = () => {
     return function (dispatch, getState, { history }) {
@@ -63,7 +63,7 @@ const getPostAPI = () => {
                 const post_createAt = res.data.createAt
                 const post_userName = res.data.username
                 dispatch(getPost(post_ID, post_content, post_img, post_usrId, post_createAt, post_userName))
-             })
+            })
             .catch((err) => {
                 console.log(err)
             })
@@ -71,27 +71,27 @@ const getPostAPI = () => {
 }
 
 export default handleActions(
-  {
-    [GET_POST]: (state, action) =>
-      produce(state, (draft) => {
-        console.log(action, "POST_GET");
-      }),
-    [ADD_POST]: (state, action) =>
-      produce(state, (draft) => {
-        console.log(action, "POST_ADD");
-        draft.post.unshift(action.payload.content);
-      }),
-    [DELETE_POST]: (state, action) =>
-      produce(state, (draft) => {
-        console.log(action, "POST_DELETE");
-      }),
-    [UPDATE_POST]: (state, action) =>
-      produce(state, (draft) => {
-        console.log(action, "POST_UPDATE");
-      }),
-  },
-  initialState
-);
+    {
+        [GET_POST]: (state, action) =>
+            produce(state, (draft) => {
+                console.log(action, "POST_GET")
+            }),
+        [ADD_POST]: (state, action) =>
+            produce(state, (draft) => {
+                console.log(action, "POST_ADD")
+                draft.post.unshift(action.payload.content)
+            }),
+        [DELETE_POST]: (state, action) =>
+            produce(state, (draft) => {
+                console.log(action, "POST_DELETE")
+            }),
+        [UPDATE_POST]: (state, action) =>
+            produce(state, (draft) => {
+                console.log(action, "POST_UPDATE")
+            }),
+    },
+    initialState
+)
 
 const actionCreators = {
     addPost,
@@ -100,4 +100,4 @@ const actionCreators = {
     getPostAPI,
 }
 
-export { actionCreators };
+export { actionCreators }
