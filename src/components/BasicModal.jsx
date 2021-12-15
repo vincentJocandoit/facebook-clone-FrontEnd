@@ -29,16 +29,23 @@ export default function BasicModal(props) {
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
     const dispatch = useDispatch()
+    const { history } = props
+
+    const preview = useSelector((state) => state.image.preview)
+    const post_list = useSelector((state) => state.post.list)
+    const [content, setContent] = React.useState("")
+
+    React.useEffect(() => {
+        dispatch(postActions.getPostAPI())
+    }, [])
+
+    const userID = localStorage.getItem(" ")
 
     const fileInput = React.useRef()
-    const selectFile = (e) => {
-        // e.target은 input이죠!
-        // input이 가진 files 객체를 살펴봅시다.
+    const SeeSelectFile = (e) => {
         console.log(e.target.files)
-        // 선택한 파일이 어떻게 저장되어 있나 봅시다.
         console.log(e.target.files[0])
 
-        // ref로도 확인해봅시다. :)
         console.log(fileInput.current.files[0])
     }
 
@@ -46,28 +53,38 @@ export default function BasicModal(props) {
         dispatch(postActions.postAdd)
     }
 
-    // const profilePreview = useSelector((state) => state.image.profilePreview)
+    const profilePreview = useSelector((state) => state.image.profilePreview)
 
-    // const [labelDisplay, setLabelDisplay] = React.useState("block")
-    // const [previewDisplay, setPreviewDisplay] = React.useState("none")
+    const [labelDisplay, setLabelDisplay] = React.useState("block")
+    const [previewDisplay, setPreviewDisplay] = React.useState("none")
 
-    // const selectFile = (e) => {
-    //     const fileName = e.target.files[0].name.split(".")[0]
-    //     const fileType = e.target.files[0].name.split(".")[1]
-    //     const fileFullName = e.target.files[0].name
-    //     const file = e.target.files[0]
-    //     const reader = new FileReader()
+    const selectFile = (e) => {
+        const fileName = e.target.files[0].name.split(".")[0]
+        const fileType = e.target.files[0].name.split(".")[1]
+        const fileFullName = e.target.files[0].name
+        const file = e.target.files[0]
+        const reader = new FileReader()
 
-    //     reader.readAsDataURL(file)
-    //     reader.onloadend = () => {
-    //         dispatch(imageActions.setPreview({ preview: reader.result, fileName, fileType, fileFullName, file }))
-    //     }
-    //     console.log("사진 변경")
+        reader.readAsDataURL(file)
+        reader.onloadend = () => {
+            dispatch(imageActions.setPreview({ preview: reader.result, fileName, fileType, fileFullName, file }))
+        }
+        console.log("사진 변경")
 
-    //     setLabelDisplay("none")
-    //     setPreviewDisplay("block")
-    // }
+        setLabelDisplay("none")
+        setPreviewDisplay("block")
+    }
 
+    //파일 미리보기
+    const filePreview = () => {
+        const reader = new FileReader()
+        const file = fileInput.current.files[0]
+        reader.readAsDataURL(file)
+        reader.onloadend = () => {
+            // console.log(reader.result);
+            dispatch(imageActions.setPreview(reader.result))
+        }
+    }
     return (
         <div>
             <Button onClick={handleOpen}>
@@ -105,7 +122,7 @@ export default function BasicModal(props) {
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}></Typography>
                     <CrudBox>
-                        <IconButton input ref={fileInput} onChange={selectFile} type="file" accept="image/*" style={{ fontSize: "100px" }} color="primary" aria-label="upload picture" component="span">
+                        <IconButton input ref={fileInput} onChange={selectFile} type="file" accept="image/*" style={{ fontSize: "100px" }} color="primary" aria-label="upload picture" component="span" onChange={filePreview}>
                             <PhotoCamera />
                         </IconButton>
                     </CrudBox>
