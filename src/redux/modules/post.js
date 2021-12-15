@@ -1,15 +1,20 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 
-const POST_GET = " POST_GET";
-const POST_ADD = " POST_ADD";
-const POST_DELETE = " POST_DELETE";
-const POST_UPDATE = " POST_UPDATE";
+import { apis } from "../lib/axios"
 
-const postGet = createAction(POST_GET, (posts) => ({ posts }));
-const postAdd = createAction(POST_ADD, (post) => ({ post }));
-const postDelete = createAction(POST_DELETE, (post) => ({ post }));
-const postUpdate = createAction(POST_UPDATE, (post) => ({ post }));
+const GET_POST = "GET_POST"
+const ADD_POST = "ADD_POST"
+const UPDATE_POST = "UPDATE_POST"
+const DELETE_POST = "DELETE_POST"
+
+const getPost = createAction(GET_POST, (post_list, post_like) => ({
+    post_list,
+    post_like,
+}))
+const addPost = createAction(ADD_POST, (post) => ({ post }))
+const deletePost = createAction(DELETE_POST, (post_id) => ({ post_id }))
+const editPost = createAction(UPDATE_POST, (post_id) => ({ post_id }))
 
 const initialState = [
   {
@@ -34,33 +39,53 @@ const initialState = [
     img: "https://t1.daumcdn.net/cfile/tistory/99C938355DD29C6C07",
     userId: "yodataesoo",
     createAt: "2021-12-15 10:00:00",
+    createAt: "2021-12-15 10:00:00",
     username: "강태수",
   },
 ];
 
 const postAddAction = (post) => {
   return function (dispatch, getState, { history }) {
-    dispatch(postAdd(post));
+    dispatch(addPost(post))
     history.push("/");
   };
 };
 
+const getPostAPI = () => {
+    return function (dispatch, getState, { history }) {
+        apis.getPost(getPost())
+            .then((res) => {
+                console.log(res.data)
+                const post_ID = res.data.postId
+                const post_content = res.data.content
+                const post_img = res.data.img
+                const post_usrId = res.data.userId
+                const post_createAt = res.data.createAt
+                const post_userName = res.data.username
+                dispatch(getPost(post_ID, post_content, post_img, post_usrId, post_createAt, post_userName))
+             })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+}
+
 export default handleActions(
   {
-    [POST_GET]: (state, action) =>
+    [GET_POST]: (state, action) =>
       produce(state, (draft) => {
         console.log(action, "POST_GET");
       }),
-    [POST_ADD]: (state, action) =>
+    [ADD_POST]: (state, action) =>
       produce(state, (draft) => {
         console.log(action, "POST_ADD");
         draft.post.unshift(action.payload.content);
       }),
-    [POST_DELETE]: (state, action) =>
+    [DELETE_POST]: (state, action) =>
       produce(state, (draft) => {
         console.log(action, "POST_DELETE");
       }),
-    [POST_UPDATE]: (state, action) =>
+    [UPDATE_POST]: (state, action) =>
       produce(state, (draft) => {
         console.log(action, "POST_UPDATE");
       }),
@@ -69,10 +94,10 @@ export default handleActions(
 );
 
 const actionCreators = {
-  postGet,
-  postAdd,
-  postDelete,
-  postUpdate,
-};
+    addPost,
+    deletePost,
+    editPost,
+    getPostAPI,
+}
 
 export { actionCreators };
