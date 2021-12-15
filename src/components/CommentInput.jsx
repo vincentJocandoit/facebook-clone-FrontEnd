@@ -8,7 +8,24 @@ import { useForm } from 'react-hook-form'
 
 const CommentInput = (props) => {
   const { register, handleSubmit } = useForm()
-  const onSubmit = (data) => console.log(data.comment)
+  const { inputText, setViewModify } = props
+
+  const onSubmit = (data) => {
+    if (inputText.includes('Enter')) {
+      console.log('create', data.comment)
+    } else {
+      console.log('update', data.comment)
+    }
+  }
+
+  const handleKeyDown = (e) => {
+    if (inputText.includes('Esc')) {
+      if (e.key === 'Escape') {
+        setViewModify(false)
+      }
+    }
+  }
+
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -16,7 +33,9 @@ const CommentInput = (props) => {
           <Image shape="circle" />
           <Grid padding="10px" width="100%" side_flex>
             <Grid width="80%">
-              <CommentInputLeftRadiusContainer>
+              <CommentInputLeftRadiusContainer
+                onKeyDown={(e) => handleKeyDown(e)}
+              >
                 <CommentInputBox
                   {...register('comment')}
                   placeholder="댓글을 입력하세요..."
@@ -43,7 +62,7 @@ const CommentInput = (props) => {
         </CommentInputContainer>
         <Grid margin="0px 0px 0px 50px">
           <Text color="#202020" fontSize="12px" bold>
-            글을 게시하려면 Enter 키를 누르세요.
+            {inputText}
           </Text>
         </Grid>
       </form>

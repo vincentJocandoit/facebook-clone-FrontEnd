@@ -4,33 +4,19 @@ import CommentInput from './CommentInput'
 import Comment from './Comment'
 import { mockCommentList } from '../shared/Mock'
 
-const Comments = (props) => {
+const CommentList = (props) => {
   return (
     <>
       <Grid>
         {mockCommentList.map((el, i) => {
           return (
-            <>
-              <CommentContainer key={i}>
-                <Grid>
-                  <Image shape="circle"></Image>
-                </Grid>
-                <Grid>
-                  <Grid>
-                    <Comment el={el} />
-                  </Grid>
-                </Grid>
-              </CommentContainer>
-              <Ul margin="0px 0px 0px 10px">
-                <CommenText>좋아요</CommenText>
-                <CommenText>답글달기</CommenText>
-                <CommenText>시간</CommenText>
-              </Ul>
-            </>
+            <CommentContainer key={i}>
+              <Comment el={el} />
+            </CommentContainer>
           )
         })}
 
-        <CommentInput />
+        <CommentInput inputText="글을 게시하려면 Enter 키를 누르세요." />
       </Grid>
     </>
   )
@@ -42,26 +28,5 @@ const CommentContainer = styled.div`
   align-items: ${(props) => (props.center ? 'center' : '')};
   margin: ${(props) => props.margin};
 `
-const Ul = styled.ul``
 
-const CommenText = styled.li`
-  display: inline-block;
-  font-size: smaller;
-  color: #8a8d91;
-  &::after {
-    display: inline-block;
-    content: '';
-    margin: 10px;
-    width: 3px;
-    height: 3px;
-    background: #8a8d91;
-    border-radius: 3px;
-    vertical-align: middle;
-  }
-  &:last-child::after {
-    content: '';
-    background: #fff;
-  }
-`
-
-export default Comments
+export default CommentList
