@@ -69,6 +69,16 @@ const getPostAPI = () => {
             })
     }
 }
+export const addContentToAxios = (content) => async (dispatch) => {
+    console.log("콘텐트추가", content)
+    try {
+        const { data } = await apis.POST("/post", { content })
+        console.log("콘텐트데이터", data)
+    } catch (error) {
+        console.error(error)
+    }
+    dispatch(addPost(content))
+}
 
 export default handleActions(
     {

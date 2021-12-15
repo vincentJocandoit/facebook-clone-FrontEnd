@@ -11,6 +11,7 @@ import { actionCreators as imageActions } from "../redux/modules/image"
 import { actionCreators as postActions } from "../redux/modules/post"
 import IconButton from "@mui/material/IconButton"
 import PhotoCamera from "@mui/icons-material/PhotoCamera"
+import {addContentToAxios} from "../redux/modules/post"
 
 const style = {
     position: "absolute",
@@ -29,30 +30,52 @@ export default function BasicModal(props) {
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
     const dispatch = useDispatch()
+    const imageRef = React.useRef("")
     const { history } = props
 
     // const preview = useSelector((state) => state.image.preview)
+
     // const post_list = useSelector((state) => state.post)
+
     const [content, setContent] = React.useState("")
+    const [showImageUpLoder, setShowImageUpLoder] = React.useState(false)
+
+    const userInfo = useSelector((state) => state.user)
 
     const userID = localStorage.getItem(" ")
 
     const fileInput = React.useRef()
-    const SeeSelectFile = (e) => {
-        console.log(e.target.files)
-        console.log(e.target.files[0])
-
-        console.log(fileInput.current.files[0])
-    }
 
     const addPost = () => {
         dispatch(postActions.postAdd)
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        const image = imageRef.current.files[0]
+
+        const formData = new FormData()
+        formData.append("content", content)
+        formData.append("image", image)
+
+        dispatch(addContentToAxios(formData))
+    }
+
+    const changeContent = (e) => {
+        setContent(e.target.value)
+    }
+
+    const handleImageUpLoader = (e) => {
+        setShowImageUpLoder(!showImageUpLoder)
+    }
+
+    
     // const profilePreview = useSelector((state) => state.image.profilePreview)
 
     const [labelDisplay, setLabelDisplay] = React.useState("block")
     const [previewDisplay, setPreviewDisplay] = React.useState("none")
+    const placeHolder = `${userInfo.username}님, 무슨 생각을 하고 계신가요?`
 
     const selectFile = (e) => {
         const fileName = e.target.files[0].name.split(".")[0]
@@ -60,7 +83,6 @@ export default function BasicModal(props) {
         const fileFullName = e.target.files[0].name
         const file = e.target.files[0]
         const reader = new FileReader()
-
         reader.readAsDataURL(file)
         reader.onloadend = () => {
             dispatch(imageActions.setPreview({ preview: reader.result, fileName, fileType, fileFullName, file }))
@@ -81,6 +103,21 @@ export default function BasicModal(props) {
             dispatch(imageActions.setPreview(reader.result))
         }
     }
+      const [imageUrl, setImageUrl] = React.useState("")
+
+      const readerUrl = () => {
+          if (!imageRef.current.files[0]) {
+              return
+          }
+          const reader = new FileReader()
+          const file = imageRef.current.files[0]
+
+          reader.readAsDataURL(file)
+          
+          reader.onloadend = () => {
+              setImageUrl(reader.result)
+          }
+      }
     return (
         <div>
             <Button onClick={handleOpen}>
@@ -94,7 +131,7 @@ export default function BasicModal(props) {
                         }}
                         label="Create post"
                         multiLine
-                        placeholder="What's on your mind, ${nickName}?"></Input>
+                        placeholder={placeHolder}></Input>
                 </Grid>
             </Button>
             <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
@@ -107,23 +144,45 @@ export default function BasicModal(props) {
                             }}>
                             POST
                         </ClosePostBtn>
-                        <Input
-                            style={{
-                                width: "300px",
-                                height: "300px",
-                                border: "1px solid black",
-                            }}
-                            multiLine
-                            placeholder="What's on your mind, Nickname?"></Input>
+                        <form onSubmit={handleSubmit}>
+                            <Input
+                                style={{
+                                    width: "300px",
+                                    height: "300px",
+                                    border: "1px solid black",
+                                }}
+                                multiLine
+                                placeholder={placeHolder}></Input>
+                        </form>
+                        {showImageUpLoder && (
+                            <UpLoaderWrap>
+                                <button
+                                //  onClick={selectFile()}
+                                 >사진/동영상 추가</button>
+                                <input ref={imageRef} onChange={readerUrl} type="file" />
+                                <ImagePreview
+                                    src={
+                                        imageUrl
+                                            ? imageUrl
+                                            : "https://i0.wp.com/www.lumosmarketing.io/wp-content/uploads/2019/04/placeholder-image.jpg?resize=360%2C300&ssl=1"
+                                    }
+                                />
+                            </UpLoaderWrap>
+                        )}
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}></Typography>
-                        <input   ref={fileInput} accept="image/*" onChange={filePreview} type="file">
                     <CrudBox>
-                            <IconButton color="primary" aria-label="upload picture" component="span">
-                                <PhotoCamera style={{ fontSize: "50px" }} />
-                            </IconButton>
+                        <IconButton color="primary" aria-label="upload picture" component="span">
+                            <PhotoCamera
+                                onClick={handleImageUpLoader}
+                                ref={fileInput}
+                                accept="image/*"
+                                onChange={filePreview}
+                                type="file"
+                                style={{ fontSize: "50px" }}
+                            />
+                        </IconButton>
                     </CrudBox>
-                        </input>
                 </Box>
             </Modal>
         </div>
@@ -144,4 +203,23 @@ const CrudBox = styled.div`
     border: 1px solid black;
     border-radius: 5px;
     margin: 10px auto;
+`
+
+
+const UpLoaderWrap = styled.div`
+    height: auto;
+    border: 1px solid #ddd;
+    margin: 10px 0px;
+    border-radius: 10px;
+`
+
+const ImagePreview = styled.div`
+    /* size: px; */
+    width: 80%;
+    height: 250px;
+    object-fit: cover;
+    vertical-align: middle;
+    background-image: url("${(props) => props.src}");
+    background-size: cover;
+    margin: 20px auto;
 `

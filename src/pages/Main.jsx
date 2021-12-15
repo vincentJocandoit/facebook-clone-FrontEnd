@@ -18,14 +18,17 @@ const Main = (props) => {
     const dispatch = useDispatch()
 
     const history = useHistory()
+
     // const mockPostList = useSelector((state) => state.post)
  
     React.useEffect(() => {
         // dispatch(Actions.getPostAPI())
     }, [])
 
+
     const user_info = localStorage.getItem("nick")
     //console.log("aaa", user_info);
+    //   const placeHolder = `${userInfo.userName}님, 무슨 생각을 하고 계신가요?`
 
     return (
         <>
