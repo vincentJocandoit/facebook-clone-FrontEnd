@@ -6,9 +6,16 @@ import { Text } from '../elements'
 
 import SignUp from './SignUp'
 
+import { actionCreators } from '../redux/modules/user'
+import { useDispatch } from "react-redux";
+
+
 const SignIn = (props) => {
 
+  const dispatch = useDispatch();
 
+  const [id, setId] = React.useState("");
+  const [pwd, setPwd] = React.useState("");
   let [modal, modalchange] = useState(false);
 
 
@@ -34,19 +41,23 @@ const SignIn = (props) => {
             }
             <RightArea>
               <Grid>
-                <InputId placeholder="E-mail"></InputId>
+                <InputId placeholder="E-mail" onChange={(e) => {
+              setId(e.target.value);
+            }}></InputId>
               </Grid>
               <Grid>
-                <InputPas placeholder="Password"></InputPas>
+                <InputPas placeholder="Password" onChange={(e) => {
+              setPwd(e.target.value);
+            }}></InputPas>
               </Grid>
               <Grid>
-                <ButtonLog>
+                <ButtonLog  onClick={() => {dispatch(actionCreators.logInDB(id,pwd))}} >
                   <Text color="white" fontSize="20px" bold>로그인</Text>
                 </ButtonLog>
               </Grid>
               <Line />
               <Grid>
-                <ButtonSign onClick={() => {modalchange(!modal)}}>
+                <ButtonSign>
                   <Text color="white" fontSize="19px" bold>새 계정 만들기</Text>
                 </ButtonSign>
               </Grid>

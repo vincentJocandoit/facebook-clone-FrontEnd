@@ -3,7 +3,12 @@ import styled from 'styled-components'
 
 import { Grid, Text } from '../elements'  
 
+import { actionCreators } from '../redux/modules/user'
+import { useDispatch } from "react-redux";
+
 const SignUp = (props) => {
+
+  const dispatch = useDispatch();
 
   // 아이디, 비밀번호, 비밀번호 확인
   const [username, setId] = React.useState(""); // 아이디
@@ -54,7 +59,7 @@ const SignUp = (props) => {
     }
   };
 
-  //이름 유효성 검사
+
 
   return(
     <RegisterContainer>
@@ -83,10 +88,8 @@ const SignUp = (props) => {
                   </span>
                 </>
               )}
-        <ButtonLog>
-          <Text>
+        <ButtonLog >
             <Text color="white" fontSize="19px" bold>새 계정 만들기</Text>
-          </Text>
         </ButtonLog>
       </TextArea>
     </RegisterContainer>

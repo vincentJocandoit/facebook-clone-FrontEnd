@@ -32,12 +32,12 @@ export default function BasicModal(props) {
     const { history } = props
 
     // const preview = useSelector((state) => state.image.preview)
-    // const post_list = useSelector((state) => state.post.list)
+
+    // const post_list = useSelector((state) => state.post)
+
     const [content, setContent] = React.useState("")
 
-    React.useEffect(() => {
-        dispatch(postActions.getPostAPI())
-    }, [])
+   
 
     const userID = localStorage.getItem(" ")
 

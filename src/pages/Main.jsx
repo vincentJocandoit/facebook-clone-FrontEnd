@@ -10,7 +10,7 @@ import BasicModal from "../components/BasicModal"
 
 import { useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { actionCreators as postActions } from "../redux/modules/image"
+import { actionCreators as Actions } from "../redux/modules/image"
 
 import { mockPostList } from "../shared/Mock"
 
@@ -18,11 +18,13 @@ const Main = (props) => {
     const dispatch = useDispatch()
 
     const history = useHistory()
-    // const mockPostList = useSelector((state) => state.post.list)
 
-    // React.useEffect(() => {
-    //     dispatch(postActions.getPostAPI())
-    // }, [])
+    // const mockPostList = useSelector((state) => state.post)
+ 
+    React.useEffect(() => {
+        // dispatch(Actions.getPostAPI())
+    }, [])
+
 
     const user_info = localStorage.getItem("nick")
     //console.log("aaa", user_info);
