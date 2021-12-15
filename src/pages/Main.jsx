@@ -18,11 +18,11 @@ const Main = (props) => {
     const dispatch = useDispatch()
 
     const history = useHistory()
-    const mockPostList = useSelector((state) => state.post.list)
- 
-    React.useEffect(() => {
-        dispatch(postActions.getPostAPI())
-    }, [])
+    // const mockPostList = useSelector((state) => state.post.list)
+
+    // React.useEffect(() => {
+    //     dispatch(postActions.getPostAPI())
+    // }, [])
 
     const user_info = localStorage.getItem("nick")
     //console.log("aaa", user_info);
@@ -45,7 +45,7 @@ const Main = (props) => {
                 <BasicModal />
             </Grid>
 
-            {mockPostList.map((list, idx) => {
+            {/* {mockPostList.map((list, idx) => {
                 return (
                     <Grid key={idx} flex>
                         <Grid height="550px" bg="#ddd" width="30%" flex margin="10px">
@@ -83,7 +83,7 @@ const Main = (props) => {
                         </Grid>
                     </Grid>
                 )
-            })}
+            })} */}
         </>
     )
 }

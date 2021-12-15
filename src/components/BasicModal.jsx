@@ -31,8 +31,8 @@ export default function BasicModal(props) {
     const dispatch = useDispatch()
     const { history } = props
 
-    const preview = useSelector((state) => state.image.preview)
-    const post_list = useSelector((state) => state.post.list)
+    // const preview = useSelector((state) => state.image.preview)
+    // const post_list = useSelector((state) => state.post.list)
     const [content, setContent] = React.useState("")
 
     React.useEffect(() => {
@@ -53,7 +53,7 @@ export default function BasicModal(props) {
         dispatch(postActions.postAdd)
     }
 
-    const profilePreview = useSelector((state) => state.image.profilePreview)
+    // const profilePreview = useSelector((state) => state.image.profilePreview)
 
     const [labelDisplay, setLabelDisplay] = React.useState("block")
     const [previewDisplay, setPreviewDisplay] = React.useState("none")
